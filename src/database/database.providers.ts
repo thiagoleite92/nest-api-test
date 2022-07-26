@@ -11,7 +11,7 @@ export const databaseProviders = [
         username: 'root',
         password: 'thiago159',
         database: 'nest-api',
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        entities: ['./dist/**/entities/*.entity.js'],
         synchronize: true,
         logging: true,
       });
