@@ -3,6 +3,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import IUserController from './interfaces/user.controller.interface';
 import CreateUserDto from './dto/create-user.dto';
 import LoginUserDto from './dto/login-user.dto';
+import { UserLogin } from './types/login-user.type';
 
 @Controller('user')
 export class UserController implements IUserController {
@@ -22,9 +23,12 @@ export class UserController implements IUserController {
     return { message };
   }
 
-  // to do login
-  // @Post('login')
-  // async loginUser(loginUser: LoginUserDto): Promise<{ message: string }> {
-  //   throw new Error('Method not implemented.');
-  // }
+  @Post('login')
+  async loginUser(@Body() loginUser: LoginUserDto): Promise<UserLogin> {
+    const { email, password } = loginUser;
+
+    const user = await this.userService.loginUser({ email, password });
+
+    return user;
+  }
 }
