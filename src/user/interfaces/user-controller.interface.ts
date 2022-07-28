@@ -1,4 +1,4 @@
-import { UserLogin } from './../types/login-user.type';
+import { UserLogin } from '../types/login-user.type';
 import CreateUserDto from '../dto/create-user.dto';
 import LoginUserDto from '../dto/login-user.dto';
 

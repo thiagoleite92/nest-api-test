@@ -2,7 +2,7 @@ import { UserLogin } from './types/login-user.type';
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import IUserService from './interfaces/user.service.interface';
+import IUserService from './interfaces/user-service.interface';
 import CreateUserDto from './dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
 import LoginUserDto from './dto/login-user.dto';
@@ -14,6 +14,13 @@ export class UserService implements IUserService {
     @Inject('USER_REPOSITORY')
     private userRepository: Repository<User>,
   ) {}
+  async findOne(email: string): Promise<any> {
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    console.log(user, 'service');
+
+    return user;
+  }
 
   async registerUser(createUser: CreateUserDto): Promise<{ message: string }> {
     try {
@@ -43,7 +50,7 @@ export class UserService implements IUserService {
   async loginUser(loginUser: LoginUserDto): Promise<UserLogin> {
     const { email, password } = loginUser;
 
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.findOne(email);
 
     const checkPassword = await bcrypt.compare(password, user.password);
 

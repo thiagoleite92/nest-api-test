@@ -1,6 +1,6 @@
 import { UserService } from './user.service';
 import { Body, Controller, Post } from '@nestjs/common';
-import IUserController from './interfaces/user.controller.interface';
+import IUserController from './interfaces/user-controller.interface';
 import CreateUserDto from './dto/create-user.dto';
 import LoginUserDto from './dto/login-user.dto';
 import { UserLogin } from './types/login-user.type';
@@ -28,6 +28,8 @@ export class UserController implements IUserController {
     const { email, password } = loginUser;
 
     const user = await this.userService.loginUser({ email, password });
+
+    console.log(user, 'aqui');
 
     return user;
   }

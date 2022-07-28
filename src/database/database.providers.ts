@@ -13,7 +13,6 @@ export const databaseProviders = [
         database: 'nest-api',
         entities: ['./dist/**/entities/*.entity.js'],
         synchronize: true,
-        logging: true,
       });
 
       return dataSource.initialize();
