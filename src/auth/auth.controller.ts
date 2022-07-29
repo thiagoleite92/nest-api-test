@@ -8,12 +8,22 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   // @UseGuards(AuthGuard('local'))
-  @Post('login')
-  async login(@Body() loginUser: LoginUserDto): Promise<any> {
+  @Post('validate')
+  async validateUser(@Body() loginUser: LoginUserDto): Promise<any> {
     const { email, password } = loginUser;
     const user = await this.authService.validateUser(email, password);
 
     console.log(user);
+    return user;
+  }
+
+  @Post('login')
+  async login(@Body() loginUser: LoginUserDto): Promise<any> {
+    const { email, password } = loginUser;
+    const user = await this.authService.login(email, password);
+
+    console.log(user);
+
     return user;
   }
 }
